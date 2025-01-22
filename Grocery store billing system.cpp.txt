@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    string customerName, customerAddress;
+    int choice, quantity;
+    double totalCost = 0.0;
+
+    // Predefined items and their prices
+    string items[] = {"Chips", "Cookies", "Soda", "Juice", "Candy", "Apples", "Bananas", "Milk", "Bread", "Eggs"};
+    double prices[] = {1.5, 2.0, 1.2, 1.8, 0.5, 0.8, 0.6, 2.5, 1.0, 3.0};
+    int numItems = 10;
+
+    // Arrays to store purchased items
+    string purchasedItems[100];
+    int purchasedQuantities[100];
+    double purchasedPrices[100];
+    int purchaseCount = 0;
+
+    // Input customer details
+    cout << "Welcome to the Grocery Store Billing System!\n";
+    cout << "Enter your name: ";
+    cin >> customerName;
+    cout << "Enter your address: ";
+    cin >> customerAddress;
+
+    // Display available items
+    cout << "\nAvailable Items:\n";
+    cout << "No.\tItem\t\tPrice ($)\n";
+    for (int i = 0; i < numItems; i++) {
+        cout << (i + 1) << "\t" << items[i] << "\t\t" << prices[i] << endl;
+    }
+
+    // Item selection loop
+    while (true) {
+        cout << "\nEnter the item number to purchase (or 0 to finish): ";
+        cin >> choice;
+
+        if (choice == 0) {
+            break; // Exit the loop
+        } else if (choice > 0 && choice <= numItems) {
+            cout << "Enter quantity for " << items[choice - 1] << ": ";
+            cin >> quantity;
+
+            if (quantity > 0) {
+                purchasedItems[purchaseCount] = items[choice - 1];
+                purchasedQuantities[purchaseCount] = quantity;
+                purchasedPrices[purchaseCount] = prices[choice - 1] * quantity;
+                totalCost += prices[choice - 1] * quantity;
+                purchaseCount++;
+            } else {
+                cout << "Invalid quantity. Please try again.\n";
+            }
+        } else {
+            cout << "Invalid item number. Please try again.\n";
+        }
+    }
+
+    // Display the final bill
+    cout << "\n--- Final Bill ---\n";
+    cout << "Customer Name: " << customerName << endl;
+    cout << "Customer Address: " << customerAddress << endl;
+    cout << "\nItems Purchased:\n";
+    cout << "Item\t\tQuantity\tPrice ($)\n";
+    for (int i = 0; i < purchaseCount; i++) {
+        cout << purchasedItems[i] << "\t\t" << purchasedQuantities[i] << "\t\t" << purchasedPrices[i] << endl;
+    }
+    cout << "\nGrand Total: $" << totalCost << endl;
+    cout << "Thank you for shopping with us!\n";
+
+    return 0;
+}
